@@ -1,4 +1,4 @@
-const { addPost, getPosts } = require("../models/post")
+const { addPost, getPosts, addLike, addComment } = require("../models/post")
 
 const typeDefs = `#graphql
 
@@ -29,7 +29,12 @@ const typeDefs = `#graphql
         
     }
 
-    
+    input CommentData {
+        content: String!,
+        username: String!,
+        createdAt: String!,
+        updatedAt: String!
+    }
 
     input PostContent {
         content: String!,
@@ -41,17 +46,22 @@ const typeDefs = `#graphql
 
     type Query {
         getPosts: [Post]
+        
     }
 
     type Mutation {
-        addPost(input: PostContent) : Post
+        addPost(input: PostContent) : Post,
+        addLike(username: String!, createdAt: String!, updatedAt: String!, postId: ID): Post,
+        addComment(input: CommentData!, postId: ID!) : Post
     }
 
 `
 
 const resolvers = {
     Mutation: {
-        addPost
+        addPost,
+        addLike,
+        addComment
     },
     Query: {
         getPosts
