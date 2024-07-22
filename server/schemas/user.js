@@ -1,4 +1,4 @@
-const { addUser } = require("../models/user");
+const { addUser, findUser } = require("../models/user");
 
 const typeDefs =`#graphql
     
@@ -23,7 +23,8 @@ const typeDefs =`#graphql
     }
 
     type Query {
-        userProfile: User
+        userProfile: User,
+        findUser(name: String) : User
     }
 
 
@@ -33,6 +34,9 @@ const typeDefs =`#graphql
 const resolvers = {
     Mutation: {
         addUser
+    },
+    Query: {
+        findUser
     }
 }
 
