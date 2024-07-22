@@ -3,6 +3,7 @@
 
 const { ObjectId } = require("mongodb");
 const { getDatabase } = require("../config/mongoConnection");
+const { hashPassword } = require("../helpers/helpers");
 
 const collection = getDatabase().collection('users');
 
@@ -13,7 +14,7 @@ async function addUser(_parent, args) {
             name, 
             username, 
             email,
-            password
+            password: hashPassword(password)
         });
         const newUser = await collection.findOne({_id: new ObjectId(userCreated.insertedId)})
 
@@ -28,9 +29,9 @@ async function addUser(_parent, args) {
 
 async function findUser(_parent, args) {
     try {
-        const nameRegex = new RegExp(`/.*${args.name}.*/`);
+        
         const user = await collection.findOne({name: {
-            $regex: `(?i).*${args.username}.*(?-i)`
+            $regex: `(?i).*${args.name}.*(?-i)`
         }})
         return user;
     } catch (error) {

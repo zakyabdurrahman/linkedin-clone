@@ -17,6 +17,8 @@ const typeDefs =`#graphql
         password: String!
     }
 
+
+
     type Mutation {
         addUser(input: NewUserData): User
     
@@ -24,7 +26,7 @@ const typeDefs =`#graphql
 
     type Query {
         userProfile: User,
-        findUser(username: String) : User
+        findUser(name: String) : User
     }
 
 
