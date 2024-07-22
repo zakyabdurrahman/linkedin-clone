@@ -30,7 +30,7 @@ async function findUser(_parent, args) {
     try {
         const nameRegex = new RegExp(`/.*${args.name}.*/`);
         const user = await collection.findOne({name: {
-            $regex: `(?i)${args.name}(?-i)`
+            $regex: `(?i).*${args.username}.*(?-i)`
         }})
         return user;
     } catch (error) {

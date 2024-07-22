@@ -24,7 +24,7 @@ const typeDefs =`#graphql
 
     type Query {
         userProfile: User,
-        findUser(name: String) : User
+        findUser(username: String) : User
     }
 
 
