@@ -1,6 +1,7 @@
 const { ObjectId } = require('mongodb');
 const {getDatabase} = require('../config/mongoConnection');
 const { createError } = require('../helpers/helpers');
+const redis = require('../config/redis');
  
 const collection = getDatabase().collection('posts');
 
@@ -61,9 +62,21 @@ async function getPosts(_paren, _args, context) {
         }
     ];
 
-    const authoredPosts = await collection.aggregate(agg).toArray();
+    //find out if its first time getting the data = no cache
+    
+
+    const postCache = await redis.get('data:posts');
 
     
+
+    const authoredPosts = await collection.aggregate(agg).toArray();
+
+    if (!postCache) {
+        await redis.set('data:posts', JSON.stringify(authoredPosts));
+    }
+
+    console.log(postCache);
+
     return authoredPosts;
 
 
