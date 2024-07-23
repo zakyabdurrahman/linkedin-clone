@@ -27,6 +27,7 @@ async function addPost(_parent, args, context) {
         updatedAt: new Date()
     });
 
+    await redis.del("data:posts")
     
     const newPost = await collection.findOne({_id: new ObjectId(insertSuccess.insertedId)});
     return newPost
