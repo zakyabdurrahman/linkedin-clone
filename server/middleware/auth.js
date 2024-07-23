@@ -9,7 +9,7 @@ async function authentication(req) {
     
     if (!bearerToken) throw createError('Invalid Token', 401);
     const token = bearerToken.split(' ')[1];
-    console.log(token);
+    
     const payload = decodeToken(token);
 
     const user = await collection.findOne({_id: new ObjectId(payload.userId)});

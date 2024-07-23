@@ -1,24 +1,29 @@
 const { ObjectId } = require('mongodb');
 const {getDatabase} = require('../config/mongoConnection');
+const { createError } = require('../helpers/helpers');
  
 const collection = getDatabase().collection('posts');
 
 
 async function addPost(_parent, args, context) {
     const loginData = await context.authentication();
-    const {content,
-        tags,
-        imgUrl,
-        authorId,
+    const {
+            content,
+            tags,
+            imgUrl,
         } = args.input;
+    
+    if (!content) throw createError('Post content is required', 400);
 
     const insertSuccess = await collection.insertOne({
         content,
         tags,
         imgUrl,
-        authorId: new ObjectId(authorId),
+        authorId: new ObjectId(loginData.userId),
         comments: [],
-        likes: []
+        likes: [],
+        createdAt: new Date(),
+        updatedAt: new Date()
     });
 
     
@@ -29,9 +34,37 @@ async function addPost(_parent, args, context) {
 
 async function getPosts(_paren, _args, context) {
     
-    const user = await context.authentication();
-    const posts = await collection.find({}).toArray();
-    return posts;
+    const loginData = await context.authentication();
+
+
+    const agg = [
+        {
+        '$lookup': {
+            'from': 'users', 
+            'localField': 'authorId', 
+            'foreignField': '_id', 
+            'as': 'author'
+        }
+        }, {
+        '$sort': {
+            'createdAt': -1
+        }
+        }, {
+        '$unwind': {
+            'path': '$author', 
+            'preserveNullAndEmptyArrays': true
+        }
+        }, {
+        '$project': {
+            'author.password': 0
+        }
+        }
+    ];
+
+    const authoredPosts = await collection.aggregate(agg).toArray();
+
+    
+    return authoredPosts;
 
 
 }

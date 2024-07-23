@@ -67,7 +67,8 @@ async function login(_parent, args) {
 
     return {
         token: createToken({
-            userId: user._id
+            userId: user._id,
+            username: user.username
         })
     }
 

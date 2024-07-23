@@ -25,7 +25,11 @@ const typeDefs = `#graphql
         imgUrl: String,
         authorId: ID!,
         comments: [Comment],
-        likes: [Like]
+        likes: [Like],
+        createdAt: String,
+        updatedAt: String,
+        author: User
+
         
     }
 
@@ -40,7 +44,7 @@ const typeDefs = `#graphql
         content: String!,
         tags: [String],
         imgUrl: String,
-        authorId: ID!,
+        
         
     }
 
