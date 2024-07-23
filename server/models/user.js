@@ -43,16 +43,14 @@ async function addUser(_parent, args) {
     
 }
 
-async function findUser(_parent, args) {
-    try {
-        
-        const user = await collection.findOne({name: {
-            $regex: `(?i).*${args.name}.*(?-i)`
-        }})
-        return user;
-    } catch (error) {
-        console.log(error);
-    }
+async function findUser(_parent, args, context) {
+    
+    const loginData = await context.authentication();    
+    const user = await collection.findOne({name: {
+        $regex: `(?i).*${args.name}.*(?-i)`
+    }})
+    return user;
+    
 }
 
 async function login(_parent, args) {
@@ -74,6 +72,8 @@ async function login(_parent, args) {
     }
 
 }
+
+
 
 module.exports = {
     addUser,

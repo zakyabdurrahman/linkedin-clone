@@ -4,29 +4,27 @@ const {getDatabase} = require('../config/mongoConnection');
 const collection = getDatabase().collection('posts');
 
 
-async function addPost(_parent, args) {
-    try {
-        const {content,
-            tags,
-            imgUrl,
-            authorId,
-            } = args.input;
+async function addPost(_parent, args, context) {
+    const loginData = await context.authentication();
+    const {content,
+        tags,
+        imgUrl,
+        authorId,
+        } = args.input;
 
-        const insertSuccess = await collection.insertOne({
-            content,
-            tags,
-            imgUrl,
-            authorId: new ObjectId(authorId),
-            comments: [],
-            likes: []
-        });
+    const insertSuccess = await collection.insertOne({
+        content,
+        tags,
+        imgUrl,
+        authorId: new ObjectId(authorId),
+        comments: [],
+        likes: []
+    });
 
-        
-        const newPost = await collection.findOne({_id: new ObjectId(insertSuccess.insertedId)});
-        return newPost
-    } catch (error) {
-        console.log(error);
-    }
+    
+    const newPost = await collection.findOne({_id: new ObjectId(insertSuccess.insertedId)});
+    return newPost
+    
 }
 
 async function getPosts(_paren, _args, context) {

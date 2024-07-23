@@ -4,10 +4,11 @@ const { userTypeDefs, userResolvers } = require('./schemas/user');
 const {connectMongo} = require('./config/mongoConnection');
 const { postTypeDefs, postResolvers } = require('./schemas/post');
 const authentication = require('./middleware/auth');
+const { followTypeDefs, followResolvers } = require('./schemas/follow');
 
 const server =  new ApolloServer({
-    typeDefs: [userTypeDefs, postTypeDefs],
-    resolvers: [userResolvers, postResolvers]
+    typeDefs: [userTypeDefs, postTypeDefs, followTypeDefs],
+    resolvers: [userResolvers, postResolvers, followResolvers]
 });
 
 

@@ -26,9 +26,14 @@ function createError(message, code) {
     })
 }
 
+function decodeToken(token) {
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+}
+
 module.exports = {
     hashPassword,
     createError,
     createToken,
-    comparePassword
+    comparePassword,
+    decodeToken
 }
