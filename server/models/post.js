@@ -29,14 +29,13 @@ async function addPost(_parent, args) {
     }
 }
 
-async function getPosts() {
-    try {
-        const posts = await collection.find({}).toArray();
-        return posts
+async function getPosts(_paren, _args, context) {
+    
+    const user = await context.authentication();
+    const posts = await collection.find({}).toArray();
+    return posts;
 
-    } catch (error) {
-        console.log(error);
-    }
+
 }
 
 async function addLike(_parent, args) {
