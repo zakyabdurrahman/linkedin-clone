@@ -1,4 +1,4 @@
-const { addUser, findUser } = require("../models/user");
+const { addUser, findUser, login } = require("../models/user");
 
 const typeDefs =`#graphql
     
@@ -7,7 +7,7 @@ const typeDefs =`#graphql
         name: String!,
         username: String!,
         email: String!,
-        password: String!
+        password: String
     }
 
     input NewUserData{
@@ -17,10 +17,15 @@ const typeDefs =`#graphql
         password: String!
     }
 
+    type ResponseLogin {
+        token: String!
+    }
+
 
 
     type Mutation {
-        addUser(input: NewUserData): User
+        addUser(input: NewUserData): User,
+        login(username: String!, password: String!) : ResponseLogin
     
     }
 
@@ -35,7 +40,8 @@ const typeDefs =`#graphql
 
 const resolvers = {
     Mutation: {
-        addUser
+        addUser,
+        login
     },
     Query: {
         findUser

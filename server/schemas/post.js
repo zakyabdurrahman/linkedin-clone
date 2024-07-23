@@ -7,15 +7,15 @@ const typeDefs = `#graphql
         
         content: String!,
         username: String!,
-        createdAt: String!,
-        updatedAt: String!
+        createdAt: String,
+        updatedAt: String
     }
 
     type Like {
         
         username: String!,
-        createdAt: String!,
-        updatedAt: String!
+        createdAt: String,
+        updatedAt: String
     }
 
     type Post {
