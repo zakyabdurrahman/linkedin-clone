@@ -33,7 +33,7 @@ async function addPost(_parent, args, context) {
     
 }
 
-async function getPosts(_paren, _args, context) {
+async function getPosts(_parent, _args, context) {
     
     const loginData = await context.authentication();
 
@@ -69,48 +69,52 @@ async function getPosts(_paren, _args, context) {
 
     
 
-    const authoredPosts = await collection.aggregate(agg).toArray();
+    
 
     if (!postCache) {
+        
+        const authoredPosts = await collection.aggregate(agg).toArray();
         await redis.set('data:posts', JSON.stringify(authoredPosts));
+        return authoredPosts
+    } else {
+        const posts = JSON.parse(postCache);
+        return posts
     }
 
-    console.log(postCache);
-
-    return authoredPosts;
+    
 
 
 }
 
-async function addLike(_parent, args) {
-    try {
-        const {username, createdAt, updatedAt, postId} = args;
-        const updatedSuccess = await collection.updateOne(
-            {_id: new ObjectId(postId)},
-            {
-                $push: {
-                    likes: {
-                        username,
-                        createdAt,
-                        updatedAt
-                    }
+async function addLike(_parent, args, context) {
+    
+    const loginData = await context.authentication();
+    const {postId} = args;
+    const updatedSuccess = await collection.updateOne(
+        {_id: new ObjectId(postId)},
+        {
+            $push: {
+                likes: {
+                    username : loginData.username,
+                    createdAt: new Date(),
+                    updatedAt: new Date()
                 }
             }
-        )
+        }
+    )
 
-        const post = await collection.findOne({_id: new ObjectId(postId)});
-        
+    const post = await collection.findOne({_id: new ObjectId(postId)});
+    
 
-        return post
-    } catch (error) {
-        console.log(error);
-    }
+    return post
+    
 }
 
-async function addComment(_parent, args) {
+async function addComment(_parent, args, context) {
     try {
+        const loginData = await context.authentication();
         const {postId} = args;
-        const {content, username, createdAt, updatedAt} = args.input;
+        const {content} = args.input;
 
         const update = await collection.updateOne(
             {_id: new ObjectId(postId)},
@@ -118,9 +122,9 @@ async function addComment(_parent, args) {
                 $push: {
                     comments: {
                         content,
-                        username, 
-                        createdAt, 
-                        updatedAt
+                        username: loginData.username, 
+                        createdAt: new Date(), 
+                        updatedAt: new Date()
                     }
                 }
             }
