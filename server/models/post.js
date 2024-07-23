@@ -87,9 +87,22 @@ async function addComment(_parent, args) {
     }
 }
 
+async function getPost(_parent, args, context) {
+    //authenticate
+    await context.authentication();
+
+    const {id} = args;
+
+    const post = await collection.findOne({_id: new ObjectId(id)});
+
+    return post
+} 
+
+
 module.exports = {
     addPost,
     getPosts,
     addLike,
-    addComment
+    addComment,
+    getPost
 }

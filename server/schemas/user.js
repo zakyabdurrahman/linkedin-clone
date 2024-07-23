@@ -1,4 +1,4 @@
-const { addUser, findUser, login } = require("../models/user");
+const { addUser, findUser, login, userProfile } = require("../models/user");
 
 const typeDefs =`#graphql
     
@@ -32,7 +32,8 @@ const typeDefs =`#graphql
 
     type Query {
         userProfile: User,
-        findUser(name: String) : User
+        findUser(name: String) : User,
+        
     }
 
 
@@ -45,7 +46,8 @@ const resolvers = {
         login
     },
     Query: {
-        findUser
+        findUser,
+        userProfile
     }
 }
 

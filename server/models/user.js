@@ -73,10 +73,19 @@ async function login(_parent, args) {
 
 }
 
+async function userProfile(_parent, _args, context) {
+    const {userId} = await context.authentication();
+
+    const user = await collection.findOne({_id: new ObjectId(userId)}, {projection: {password: 0}});
+
+    return user;
+}
+
 
 
 module.exports = {
     addUser,
     findUser,
-    login 
+    login,
+    userProfile 
 }

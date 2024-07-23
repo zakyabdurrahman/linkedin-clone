@@ -6,10 +6,11 @@ const collection = getDatabase().collection('users');
 
 async function authentication(req) {
     const bearerToken = req.headers.authorization;
-
+    
     if (!bearerToken) throw createError('Invalid Token', 401);
-
-    const payload = decodeToken(bearerToken.split(' ')[1]);
+    const token = bearerToken.split(' ')[1];
+    console.log(token);
+    const payload = decodeToken(token);
 
     const user = await collection.findOne({_id: new ObjectId(payload.userId)});
 

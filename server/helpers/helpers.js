@@ -27,7 +27,10 @@ function createError(message, code) {
 }
 
 function decodeToken(token) {
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    console.log(process.env.JWT_SECRET, "SECRET");
+    console.log(token, "INPUT TOKEN");
+    const payload = jwt.decode(token, process.env.JWT_SECRET);
+    return payload
 }
 
 module.exports = {
