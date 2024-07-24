@@ -2,7 +2,7 @@ import { Button, Image, Text, TextInput, View } from "react-native";
 import styles from "../utils/styles";
 import logo from "../assets/linkedin.jpg";
 
-export default function RegisterScreen() {
+export default function RegisterScreen({navigation}) {
     return (
         <View style={styles.container}> 
             <View>
@@ -12,7 +12,7 @@ export default function RegisterScreen() {
                 ></Image>
                 <View style={styles.loginTextContainer}>
                     <Text style={styles.h1Login}>Join LinkedIn</Text>
-                    <Text style={{marginTop: 5, fontSize: 16}}>or <Text style={{color: "blue", fontWeight: "bold"}}>Sign in</Text></Text>
+                    <Text style={{marginTop: 5, fontSize: 16}}>or <Text style={{color: "blue", fontWeight: "bold"}} onPress={() => navigation.navigate("Login")}>Sign in</Text></Text>
                     
                 </View>
                 <View style={styles.formGroupLogin}>
@@ -26,7 +26,7 @@ export default function RegisterScreen() {
 
             <View style={{marginTop: 30, paddingHorizontal:20}}>  
                 <Button title='Sign in'></Button>
-                <Text style={{textAlign:"center", marginTop:20}}> New to LinkedIn? <Text style={{color: "blue", fontWeight: "bold"}}>Join now</Text> </Text>
+                
             </View>
         </View>
     )

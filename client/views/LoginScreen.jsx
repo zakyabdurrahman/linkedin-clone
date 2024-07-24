@@ -3,7 +3,7 @@ import { Button, Image, Text, TextInput, View } from "react-native"
 import styles from "../utils/styles"
 import logo from "../assets/linkedin.jpg"
 
-export default function LoginScreen() {
+export default function LoginScreen({navigation}) {
     
     return (
         <View style={styles.container}>
@@ -26,7 +26,7 @@ export default function LoginScreen() {
 
             <View style={{marginTop: 30, paddingHorizontal:20}}>  
                 <Button title='Sign in'></Button>
-                <Text style={{textAlign:"center", marginTop:20}}> New to LinkedIn? <Text style={{color: "blue", fontWeight: "bold"}}>Join now</Text> </Text>
+                <Text style={{textAlign:"center", marginTop:20}}> New to LinkedIn? <Text style={{color: "blue", fontWeight: "bold"}} onPress={() => navigation.navigate("Register")}>Join now</Text> </Text>
             </View>
 
             
