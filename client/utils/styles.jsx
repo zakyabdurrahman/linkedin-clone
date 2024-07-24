@@ -6,6 +6,23 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "white"
     },
+    postsContainer: {
+        backgroundColor: "gray",
+        flex: 1
+    }, 
+    postContainer: {
+        backgroundColor: "white",
+        marginVertical: 10,
+        paddingHorizontal: 20,
+        paddingVertical:10
+    },
+    postsNavbar: {
+        backgroundColor: "white",
+        
+        paddingVertical: 5,
+        flexDirection: "row",
+        justifyContent: "center"
+    },
     linkedinLogo: {
         height: 110,
         width: 150
