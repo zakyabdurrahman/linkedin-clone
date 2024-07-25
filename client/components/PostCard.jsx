@@ -1,10 +1,11 @@
 import { Text, View } from "react-native";
 import styles from "../utils/styles";
+import { Divider } from "react-native-paper";
 
 export default function PostCard() {
     return (
         <View style={styles.postContainer}>
-            <View style={{marginBottom: 5}}>
+            <View style={{marginBottom: 5, flexDirection: "row"}}>
                 
                 <Text style={{fontWeight: "bold", fontSize: 18}}>Irfan Naufal</Text>
             </View>
@@ -17,6 +18,8 @@ export default function PostCard() {
             <View style={{marginTop: 10}}>
                 <Text style={{color: "gray", textAlign: "right"}}> 2 Likes ⸱ 2 Comments</Text>
             </View>
+            <Divider style={{marginVertical: 5}}/>
+            <Text style={{textAlign: "center"}}>See More</Text>
         </View>
     )
 }

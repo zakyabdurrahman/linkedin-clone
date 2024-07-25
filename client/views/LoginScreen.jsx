@@ -25,7 +25,7 @@ export default function LoginScreen({navigation}) {
             </View>
 
             <View style={{marginTop: 30, paddingHorizontal:20}}>  
-                <Button title='Sign in'></Button>
+                <Button title='Sign in' onPress={() => navigation.navigate("Main")}></Button>
                 <Text style={{textAlign:"center", marginTop:20}}> New to LinkedIn? <Text style={{color: "blue", fontWeight: "bold"}} onPress={() => navigation.navigate("Register")}>Join now</Text> </Text>
             </View>
 
