@@ -16,7 +16,7 @@ export default function RegisterScreen({navigation}) {
                     
                 </View>
                 <View style={styles.formGroupLogin}>
-                    <TextInput style={styles.form} placeholder='Name'></TextInput>
+                    <TextInput style={styles.form} placeholder='Name' ></TextInput>
                     <TextInput style={styles.form} placeholder='Username'></TextInput>
                     <TextInput style={styles.form} placeholder='Email or Phone'></TextInput>
                     <TextInput style={styles.form} placeholder='Password' secureTextEntry={true}></TextInput>
@@ -25,7 +25,7 @@ export default function RegisterScreen({navigation}) {
             </View>
 
             <View style={{marginTop: 30, paddingHorizontal:20}}>  
-                <Button title='Sign in'></Button>
+                <Button title='Sign Up'></Button>
                 
             </View>
         </View>
