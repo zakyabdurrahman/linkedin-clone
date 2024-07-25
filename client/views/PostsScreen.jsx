@@ -6,7 +6,7 @@ import PostCard from "../components/PostCard";
 import { useQuery } from "@apollo/client";
 import { POSTS } from "../queries/queries";
 
-export default function PostsScreen() {
+export default function PostsScreen({navigation}) {
 
   const {loading, data, error} = useQuery(POSTS);
 
@@ -15,7 +15,7 @@ export default function PostsScreen() {
   return (
     <SafeAreaView style={styles.postsContainer}>
       <View style={{ alignItems: "center" }}>
-        <Button title="Create Post" color="dodgerblue"></Button>
+        <Button onPress={() => navigation.navigate("AddPost")} title="Create Post" color="dodgerblue"></Button>
       </View>
       <FlatList
         data={data?.getPosts}

@@ -16,6 +16,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical:10
     },
+    addPostForm: {
+        fontSize: 18,
+        borderWidth: 0.3,
+        padding: 10,
+        fontFamily: "monospace",
+        borderRadius:10,
+        textAlignVertical: "top"
+    },
     postsNavbar: {
         backgroundColor: "white",
         

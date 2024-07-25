@@ -1,14 +1,15 @@
 import { View } from "react-native"
 import styles from "../utils/styles"
 import SearchNavbar from "../components/SearchNavbar"
+import { SafeAreaView } from "react-native-safe-area-context"
 
 
 function SearchUserScreen() {
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             
             <SearchNavbar/>
-        </View>
+        </SafeAreaView>
     )
 }
 

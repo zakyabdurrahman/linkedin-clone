@@ -26,3 +26,11 @@ export const POSTS = gql`
     }
   }
 `
+
+export const ADD_POST = gql`
+  mutation AddPost($input: PostContent) {
+    addPost(input: $input) {
+      content
+    }
+}
+`

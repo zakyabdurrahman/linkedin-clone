@@ -1,18 +1,19 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import PostsScreen from "../views/PostsScreen";
 import SearchUserScreen from "../views/SearchUserScreen";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import ProfileScreen from "../views/ProfileScreen";
 
-import { FontAwesome } from "@expo/vector-icons";
+import PostStack from "./PostStack";
 
 const Tab = createBottomTabNavigator();
 
 function BottomTab() {
   return (
     <Tab.Navigator
+      
       screenOptions={({ route }) => ({
+        headerShown: false,
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
@@ -31,7 +32,7 @@ function BottomTab() {
         tabBarInactiveTintColor: "gray",
       })}
     >
-      <Tab.Screen name="Home" component={PostsScreen} />
+      <Tab.Screen name="Home" component={PostStack} />
       <Tab.Screen name="Users" component={SearchUserScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
