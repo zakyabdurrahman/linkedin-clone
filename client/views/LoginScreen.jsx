@@ -21,7 +21,7 @@ export default function LoginScreen({ navigation }) {
         console.log(data);
         navigation.navigate("Main");
       },
-      onError: (error) => console.log(error),
+      onError: (error) => console.log(error.networkError),
     });
   }
 

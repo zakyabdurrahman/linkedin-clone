@@ -1,6 +1,6 @@
 const { addUser, findUser, login, userProfile } = require("../models/user");
 
-const typeDefs =`#graphql
+const typeDefs = `#graphql
     
     type User {
         _id: ID!,
@@ -15,7 +15,8 @@ const typeDefs =`#graphql
         name: String!,
         username: String!,
         email: String!,
-        password: String!
+        password: String!,
+        imgUrl: String
     }
 
     type ResponseLogin {
@@ -41,18 +42,17 @@ const typeDefs =`#graphql
 `;
 
 const resolvers = {
-    Mutation: {
-        addUser,
-        login
-    },
-    Query: {
-        findUser,
-        userProfile
-    }
-}
+  Mutation: {
+    addUser,
+    login,
+  },
+  Query: {
+    findUser,
+    userProfile,
+  },
+};
 
 module.exports = {
-    userTypeDefs: typeDefs,
-    userResolvers: resolvers
-}
-
+  userTypeDefs: typeDefs,
+  userResolvers: resolvers,
+};
