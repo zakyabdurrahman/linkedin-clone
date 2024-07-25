@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import * as SecureStore from "expo-secure-store";
 
 export const LoginContext = createContext({
   loggedIn: false,
@@ -9,7 +10,14 @@ export function LoginProvider({ children }) {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    setLoggedIn(false);
+    (async () => {
+      const token = await SecureStore.getItemAsync("token");
+      if (token) {
+        setLoggedIn(true);
+      } else {
+        setLoggedIn(false);
+      }
+    })();
   }, []);
 
   return (
