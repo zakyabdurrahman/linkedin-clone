@@ -7,3 +7,22 @@ export const LOGIN = gql`
     }
   }
 `;
+
+export const POSTS = gql`
+  query Author {
+    getPosts {
+        author {
+          name
+        }
+        content
+        likes {
+          username
+        }
+        _id
+        comments {
+          content
+          username
+        }
+    }
+  }
+`
