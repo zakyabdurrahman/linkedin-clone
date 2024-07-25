@@ -125,7 +125,8 @@ async function addComment(_parent, args, context) {
                         content,
                         username: loginData.username, 
                         createdAt: new Date(), 
-                        updatedAt: new Date()
+                        updatedAt: new Date(),
+                        name: loginData.name
                     }
                 }
             }

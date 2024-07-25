@@ -8,6 +8,7 @@ const typeDefs = `#graphql
         content: String!,
         username: String!,
         createdAt: String,
+        name: String,
         updatedAt: String
     }
 

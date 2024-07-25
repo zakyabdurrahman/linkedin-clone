@@ -65,7 +65,7 @@ async function findUser(_parent, args, context) {
 
 async function login(_parent, args) {
   //get inputs
-  console.log("login hit");
+  
   const { username, password } = args;
 
   if (!username || !password) {
@@ -87,6 +87,7 @@ async function login(_parent, args) {
     token: createToken({
       userId: user._id,
       username: user.username,
+      name: user.name
     }),
   };
 }
