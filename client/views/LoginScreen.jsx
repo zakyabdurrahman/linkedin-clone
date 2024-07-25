@@ -2,14 +2,17 @@ import { StatusBar } from "expo-status-bar";
 import { Button, Image, Text, TextInput, View } from "react-native";
 import styles from "../utils/styles";
 import logo from "../assets/linkedin.jpg";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../queries/queries";
+import * as SecureStore from "expo-secure-store";
+import { LoginContext } from "../contexts/LoginContext";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fetchLogin, { data, loading, error }] = useMutation(LOGIN);
+  const { setLoggedIn } = useContext(LoginContext);
 
   function loginHandler() {
     fetchLogin({
@@ -17,9 +20,11 @@ export default function LoginScreen({ navigation }) {
         username: email,
         password: password,
       },
-      onCompleted: (data) => {
+      onCompleted: async (data) => {
         console.log(data);
-        navigation.navigate("Main");
+        const token = data.login.token;
+        await SecureStore.setItemAsync("token", token);
+        setLoggedIn(true);
       },
       onError: (error) => console.log(error.networkError),
     });
