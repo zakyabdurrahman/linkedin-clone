@@ -73,3 +73,11 @@ export const FIND_USER = gql`
     }
   }
 `;
+
+export const REGISTER_USER = gql`
+  mutation Mutation($input: NewUserData) {
+    addUser(input: $input) {
+      _id
+    }
+  }
+`;
