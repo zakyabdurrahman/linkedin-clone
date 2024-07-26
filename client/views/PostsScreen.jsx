@@ -5,6 +5,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import PostCard from "../components/PostCard";
 import { useQuery } from "@apollo/client";
 import { POSTS } from "../queries/queries";
+import client from "../config/apolloClient";
+import { ActivityIndicator } from "react-native";
 
 export default function PostsScreen({ navigation }) {
   const { loading, data, error } = useQuery(POSTS);
@@ -12,6 +14,16 @@ export default function PostsScreen({ navigation }) {
   function handleDetailClick(id) {
     navigation.navigate("PostDetail", {
       id,
+    });
+  }
+
+  if (data) {
+    let datas = data;
+  }
+
+  async function refresh() {
+    await client.refetchQueries({
+      include: [POSTS],
     });
   }
 
@@ -24,7 +36,6 @@ export default function PostsScreen({ navigation }) {
           color="dodgerblue"
         ></Button>
       </View>
-
       {loading ? (
         <View style={{ alignItems: "center" }}>
           <ActivityIndicator size="large" color="dodgerblue" />
@@ -38,6 +49,8 @@ export default function PostsScreen({ navigation }) {
         renderItem={({ item }) => (
           <PostCard postData={item} navFn={() => handleDetailClick(item._id)} />
         )}
+        onRefresh={refresh}
+        refreshing={loading}
       />
     </SafeAreaView>
   );

@@ -64,10 +64,11 @@ async function getPosts(_parent, _args, context) {
 
   const postCache = await redis.get("data:posts");
 
-  if (!postCache) {
+  //redis is so bad and unrealiable i switched for now..
+  if (true) {
     console.log("Cache not there");
     const authoredPosts = await collection.aggregate(agg).toArray();
-    await redis.set("data:posts", JSON.stringify(authoredPosts));
+    //await redis.set("data:posts", JSON.stringify(authoredPosts));
     return authoredPosts;
   } else {
     console.log("cache there");
@@ -78,6 +79,7 @@ async function getPosts(_parent, _args, context) {
 
 async function addLike(_parent, args, context) {
   const loginData = await context.authentication();
+  console.log(loginData, "FROM ADDLIKE");
   const { postId } = args;
   const updatedSuccess = await collection.updateOne(
     { _id: new ObjectId(postId) },

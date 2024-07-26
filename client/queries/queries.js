@@ -56,3 +56,11 @@ export const ADD_POST = gql`
     }
   }
 `;
+
+export const ADD_LIKE = gql`
+  mutation AddLike($postId: ID) {
+    addLike(postId: $postId) {
+      content
+    }
+  }
+`;

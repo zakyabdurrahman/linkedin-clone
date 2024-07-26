@@ -1,6 +1,6 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from "../utils/styles";
-import { Button, TextInput, View } from "react-native";
+import { ActivityIndicator, Button, TextInput, View } from "react-native";
 import { useMutation } from "@apollo/client";
 import { ADD_POST, POSTS } from "../queries/queries";
 import { useState } from "react";
@@ -52,13 +52,19 @@ function CreatePostScreen({ navigation }) {
         />
       </View>
 
-      <View style={{ flexDirection: "row-reverse" }}>
-        <View style={{ marginTop: 20, marginRight: 10 }}>
-          <View style={{ width: 100 }}>
-            <Button title="Post" onPress={handleAddPost} />
+      {loading ? (
+        <View style={{ alignItems: "center" }}>
+          <ActivityIndicator size="large" color="dodgerblue" />
+        </View>
+      ) : (
+        <View style={{ flexDirection: "row-reverse" }}>
+          <View style={{ marginTop: 20, marginRight: 10 }}>
+            <View style={{ width: 100 }}>
+              <Button title="Post" onPress={handleAddPost} />
+            </View>
           </View>
         </View>
-      </View>
+      )}
     </SafeAreaView>
   );
 }

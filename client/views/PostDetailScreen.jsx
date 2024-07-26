@@ -1,17 +1,29 @@
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from "../utils/styles";
-import { Button, Image, ScrollView, Text, TextInput } from "react-native";
-import { useQuery } from "@apollo/client";
-import { POST_DETAIL } from "../queries/queries";
+import {
+  ActivityIndicator,
+  Button,
+  Image,
+  ScrollView,
+  Text,
+  TextInput,
+} from "react-native";
+import { useMutation, useQuery } from "@apollo/client";
+import { ADD_LIKE, POST_DETAIL } from "../queries/queries";
 import { View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import Toast from "react-native-root-toast";
 
 //how to pass parameter between navigation
 //then usequery here
 
 export default function PostDetailScreen({ route }) {
   const { id } = route.params;
+
+  const [addLike] = useMutation(ADD_LIKE, {
+    refetchQueries: [POST_DETAIL],
+  });
 
   const { data, loading, error } = useQuery(POST_DETAIL, {
     variables: {
@@ -20,11 +32,18 @@ export default function PostDetailScreen({ route }) {
   });
 
   //add like -> refetch posts + postDetail
-  //add comment -> refetch posts + postDetail
 
-  if (!loading) {
-    console.log(data);
+  function handleLike() {
+    Toast.show("Liked post", {
+      duration: Toast.durations.SHORT,
+    });
+    addLike({
+      variables: {
+        postId: id,
+      },
+    });
   }
+  //add comment -> refetch posts + postDetail
 
   return (
     <SafeAreaView style={styles.container}>
@@ -53,7 +72,12 @@ export default function PostDetailScreen({ route }) {
           }}
         >
           <View>
-            <AntDesign name="like1" size={24} color="dodgerblue" />
+            <AntDesign
+              name="like1"
+              size={24}
+              color="dodgerblue"
+              onPress={handleLike}
+            />
           </View>
           <Text style={{ color: "gray", textAlign: "right" }}>
             {" "}
@@ -68,9 +92,15 @@ export default function PostDetailScreen({ route }) {
           style={{ fontSize: 16, marginTop: 10, marginBottom: 20 }}
         />
 
-        <View>
-          <Button title="Submit" />
-        </View>
+        {loading ? (
+          <View style={{ alignItems: "center" }}>
+            <ActivityIndicator size="large" color="dodgerblue" />
+          </View>
+        ) : (
+          <View>
+            <Button title="Submit" />
+          </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
