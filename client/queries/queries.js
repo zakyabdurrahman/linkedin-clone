@@ -64,3 +64,12 @@ export const ADD_LIKE = gql`
     }
   }
 `;
+
+export const FIND_USER = gql`
+  query FindUser($name: String) {
+    findUser(name: $name) {
+      name
+      _id
+    }
+  }
+`;

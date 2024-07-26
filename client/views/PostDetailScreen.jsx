@@ -10,7 +10,7 @@ import {
   TextInput,
 } from "react-native";
 import { useMutation, useQuery } from "@apollo/client";
-import { ADD_LIKE, POST_DETAIL } from "../queries/queries";
+import { ADD_LIKE, POST_DETAIL, POSTS } from "../queries/queries";
 import { View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import Toast from "react-native-root-toast";
@@ -22,7 +22,7 @@ export default function PostDetailScreen({ route }) {
   const { id } = route.params;
 
   const [addLike] = useMutation(ADD_LIKE, {
-    refetchQueries: [POST_DETAIL],
+    refetchQueries: [POST_DETAIL, POSTS],
   });
 
   const { data, loading, error } = useQuery(POST_DETAIL, {

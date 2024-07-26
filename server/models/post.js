@@ -65,7 +65,7 @@ async function getPosts(_parent, _args, context) {
   const postCache = await redis.get("data:posts");
 
   //redis is so bad and unrealiable i switched for now..
-  if (true) {
+  if (!postCache) {
     console.log("Cache not there");
     const authoredPosts = await collection.aggregate(agg).toArray();
     //await redis.set("data:posts", JSON.stringify(authoredPosts));

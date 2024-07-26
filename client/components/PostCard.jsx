@@ -4,7 +4,7 @@ import { Divider } from "react-native-paper";
 
 export default function PostCard({ postData, navFn }) {
   return (
-    <View style={styles.postContainer}>
+    <View style={styles.postContainer} onPress={navFn}>
       <View style={{ marginBottom: 5, flexDirection: "row" }}>
         <Text style={{ fontWeight: "bold", fontSize: 18 }}>
           {postData.author.name}
