@@ -1,5 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import { Button, Image, Text, TextInput, View } from "react-native";
+import {
+  ActivityIndicator,
+  Button,
+  Image,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import styles from "../utils/styles";
 import logo from "../assets/linkedin.jpg";
 import { useContext, useState } from "react";
@@ -56,20 +63,25 @@ export default function LoginScreen({ navigation }) {
           ></TextInput>
         </View>
       </View>
-
-      <View style={{ marginTop: 30, paddingHorizontal: 20 }}>
-        <Button title="Sign in" onPress={loginHandler}></Button>
-        <Text style={{ textAlign: "center", marginTop: 20 }}>
-          {" "}
-          New to LinkedIn?{" "}
-          <Text
-            style={{ color: "blue", fontWeight: "bold" }}
-            onPress={() => navigation.navigate("Register")}
-          >
-            Join now
-          </Text>{" "}
-        </Text>
-      </View>
+      {loading ? (
+        <View style={{ alignItems: "center" }}>
+          <ActivityIndicator size="large" color="dodgerblue" />
+        </View>
+      ) : (
+        <View style={{ marginTop: 30, paddingHorizontal: 20 }}>
+          <Button title="Sign in" onPress={loginHandler}></Button>
+          <Text style={{ textAlign: "center", marginTop: 20 }}>
+            {" "}
+            New to LinkedIn?{" "}
+            <Text
+              style={{ color: "blue", fontWeight: "bold" }}
+              onPress={() => navigation.navigate("Register")}
+            >
+              Join now
+            </Text>{" "}
+          </Text>
+        </View>
+      )}
 
       <StatusBar style="auto" />
     </View>
