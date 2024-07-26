@@ -14,6 +14,7 @@ import { ADD_LIKE, POST_DETAIL, POSTS } from "../queries/queries";
 import { View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import Toast from "react-native-root-toast";
+import { Chip } from "react-native-paper";
 
 //how to pass parameter between navigation
 //then usequery here
@@ -63,6 +64,12 @@ export default function PostDetailScreen({ route }) {
         )}
 
         <Text style={{ fontSize: 18 }}>{data?.getPost.content}</Text>
+        <View style={{ flexDirection: "row" }}>
+          {data?.getPost.tags.map((e) => (
+            <Chip style={{ marginHorizontal: 5, marginTop: 5 }}>{e}</Chip>
+          ))}
+        </View>
+
         <View
           style={{
             marginTop: 10,

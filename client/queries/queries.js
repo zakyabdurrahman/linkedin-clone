@@ -8,6 +8,14 @@ export const LOGIN = gql`
   }
 `;
 
+export const FOLLOW_USER = gql`
+  mutation FollowUser($followingId: ID) {
+    followUser(followingId: $followingId) {
+      _id
+    }
+  }
+`;
+
 export const POST_DETAIL = gql`
   query GetPost($getPostId: ID) {
     getPost(id: $getPostId) {
@@ -45,6 +53,7 @@ export const POSTS = gql`
         content
         username
       }
+      tags
     }
   }
 `;

@@ -11,13 +11,16 @@ function CreatePostScreen({ navigation }) {
   });
   const [content, setContent] = useState("");
   const [imgUrl, setImgurl] = useState("");
+  const [tags, setTags] = useState([]);
 
   function handleAddPost() {
+    console.log(tags);
     addPost({
       variables: {
         input: {
           content: content,
           imgUrl: imgUrl,
+          tags: tags.length > 0 && tags ? tags.split(",") : [],
         },
       },
       onCompleted: (data) => navigation.navigate("Posts"),
@@ -47,8 +50,8 @@ function CreatePostScreen({ navigation }) {
         <TextInput
           style={styles.addPostSingleForm}
           placeholder="Tags"
-          value={imgUrl}
-          onChangeText={setImgurl}
+          value={tags}
+          onChangeText={setTags}
         />
       </View>
 

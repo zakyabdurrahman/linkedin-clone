@@ -1,6 +1,6 @@
-import { Image, Text, View } from "react-native";
+import { Button, Image, Text, View } from "react-native";
 import styles from "../utils/styles";
-import { Divider } from "react-native-paper";
+import { Chip, Divider } from "react-native-paper";
 
 export default function PostCard({ postData, navFn }) {
   return (
@@ -33,10 +33,14 @@ export default function PostCard({ postData, navFn }) {
           {postData.likes.length} Likes ⸱ 2 Comments
         </Text>
       </View>
+      <View style={{ flexDirection: "row" }}>
+        {postData.tags.map((e) => (
+          <Chip style={{ marginHorizontal: 5, marginTop: 5 }}>{e}</Chip>
+        ))}
+      </View>
+
       <Divider style={{ marginVertical: 5 }} />
-      <Text style={{ textAlign: "center" }} onPress={navFn}>
-        See More
-      </Text>
+      <Button title="See More" onPress={navFn}></Button>
     </View>
   );
 }
