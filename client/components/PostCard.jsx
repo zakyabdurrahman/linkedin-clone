@@ -30,7 +30,7 @@ export default function PostCard({ postData, navFn }) {
       <View style={{ marginTop: 10 }}>
         <Text style={{ color: "gray", textAlign: "right" }}>
           {" "}
-          {postData.likes.length} Likes ⸱ 2 Comments
+          {postData.likes.length} Likes ⸱ {postData.comments.length} Comments
         </Text>
       </View>
       <View style={{ flexDirection: "row" }}>

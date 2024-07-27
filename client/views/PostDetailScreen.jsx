@@ -88,7 +88,7 @@ export default function PostDetailScreen({ route }) {
           </View>
           <Text style={{ color: "gray", textAlign: "right" }}>
             {" "}
-            {data?.getPost.likes.length} Likes ⸱ 2 Comments
+            {data?.getPost.likes.length} Likes ⸱ {data?.getPost.comments.length} Comments
           </Text>
         </View>
         <Text style={{ fontWeight: "bold", fontSize: 16, marginTop: 10 }}>

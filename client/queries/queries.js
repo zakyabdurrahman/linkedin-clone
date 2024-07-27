@@ -52,6 +52,7 @@ export const POSTS = gql`
       comments {
         content
         username
+        name
       }
       tags
     }
