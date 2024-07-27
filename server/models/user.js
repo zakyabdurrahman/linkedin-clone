@@ -95,12 +95,55 @@ async function login(_parent, args) {
 async function userProfile(_parent, _args, context) {
   const { userId } = await context.authentication();
 
-  const user = await collection.findOne(
-    { _id: new ObjectId(userId) },
-    { projection: { password: 0 } }
-  );
+  const agg = [
+    {
+      '$lookup': {
+        'from': 'follows', 
+        'localField': '_id', 
+        'foreignField': 'followingId', 
+        'as': 'followers'
+      }
+    }, {
+      '$lookup': {
+        'from': 'users', 
+        'localField': 'followers.followerId', 
+        'foreignField': '_id', 
+        'as': 'followers'
+      }
+    }, {
+      '$project': {
+        'followers.password': 0, 
+        'password': 0
+      }
+    }, {
+      '$lookup': {
+        'from': 'follows', 
+        'localField': '_id', 
+        'foreignField': 'followerId', 
+        'as': 'followings'
+      }
+    }, {
+      '$lookup': {
+        'from': 'users', 
+        'localField': 'followings.followingId', 
+        'foreignField': '_id', 
+        'as': 'followings'
+      }
+    }, {
+      '$project': {
+        'password': 0, 
+        'followings.password': 0
+      }
+    }, {
+      '$match': {
+        '_id': new ObjectId(userId)
+      }
+    }
+  ];
 
-  return user;
+  const user = await collection.aggregate(agg).toArray();
+
+  return user[0];
 }
 
 module.exports = {

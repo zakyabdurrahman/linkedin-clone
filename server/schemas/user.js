@@ -8,7 +8,19 @@ const typeDefs = `#graphql
         username: String!,
         email: String!,
         password: String,
-        imgUrl: String
+        imgUrl: String,
+        
+    }
+
+    type Profile {
+        _id: ID!,
+        name: String!,
+        username: String!,
+        email: String!,
+        password: String,
+        imgUrl: String,
+        followers: [User],
+        followings: [User]
     }
 
     input NewUserData{
@@ -32,7 +44,7 @@ const typeDefs = `#graphql
     }
 
     type Query {
-        userProfile: User,
+        userProfile: Profile,
         findUser(name: String) : User,
         
     }
