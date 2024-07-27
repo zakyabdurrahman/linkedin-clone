@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+  require('dotenv').config();
+}
+
 const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
 const { userTypeDefs, userResolvers } = require("./schemas/user");
@@ -5,6 +9,7 @@ const { connectMongo } = require("./config/mongoConnection");
 const { postTypeDefs, postResolvers } = require("./schemas/post");
 const authentication = require("./middleware/auth");
 const { followTypeDefs, followResolvers } = require("./schemas/follow");
+const PORT = process.env.PORT || 4000
 
 const server = new ApolloServer({
   typeDefs: [userTypeDefs, postTypeDefs, followTypeDefs],
@@ -16,7 +21,7 @@ const server = new ApolloServer({
   await connectMongo();
   const { url } = await startStandaloneServer(server, {
     listen: {
-      port: 4000,
+      port: PORT,
     },
     context: async ({ req, res }) => {
       //the context itself returns an object
