@@ -14,7 +14,7 @@ function CreatePostScreen({ navigation }) {
   const [tags, setTags] = useState([]);
 
   function handleAddPost() {
-    console.log(tags);
+    
     addPost({
       variables: {
         input: {

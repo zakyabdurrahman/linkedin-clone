@@ -21,7 +21,7 @@ function SearchUserScreen() {
         followingId: id,
       },
       onCompleted: (data) => {
-        console.log(data);
+        
         Toast.show("Followed user", {
           duration: Toast.durations.SHORT,
         });
@@ -43,9 +43,7 @@ function SearchUserScreen() {
     };
   }, [searchQuery]);
 
-  if (!loading) {
-    console.log(data);
-  }
+  
 
   return (
     <SafeAreaView style={styles.container}>

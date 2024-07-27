@@ -14,13 +14,14 @@ import { useMutation } from "@apollo/client";
 import { LOGIN } from "../queries/queries";
 import * as SecureStore from "expo-secure-store";
 import { LoginContext } from "../contexts/LoginContext";
+import client from "../config/apolloClient";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fetchLogin, { data, loading, error }] = useMutation(LOGIN);
   const { setLoggedIn } = useContext(LoginContext);
-
+  
   function loginHandler() {
     fetchLogin({
       variables: {
@@ -28,6 +29,7 @@ export default function LoginScreen({ navigation }) {
         password: password,
       },
       onCompleted: async (data) => {
+        await client.resetStore();
         console.log(data);
         const token = data.login.token;
         await SecureStore.setItemAsync("token", token);

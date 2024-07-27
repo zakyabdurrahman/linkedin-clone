@@ -1,6 +1,11 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
+  nameHeader: {
+    marginVertical: 20,
+    fontSize: 36,
+    fontWeight: "bold"
+  },
   container: {
     paddingHorizontal: 20,
     flex: 1,

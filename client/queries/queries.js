@@ -90,3 +90,22 @@ export const REGISTER_USER = gql`
     }
   }
 `;
+
+export const PROFILE = gql`
+  query ExampleQuery {
+    userProfile {
+      name
+      imgUrl
+      followings {
+        name
+      }
+      followers {
+        name
+      }
+      username
+      _id
+    }
+  }
+`;
+
+

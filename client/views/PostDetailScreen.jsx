@@ -66,7 +66,7 @@ export default function PostDetailScreen({ route }) {
         <Text style={{ fontSize: 18 }}>{data?.getPost.content}</Text>
         <View style={{ flexDirection: "row" }}>
           {data?.getPost.tags.map((e) => (
-            <Chip style={{ marginHorizontal: 5, marginTop: 5 }}>{e}</Chip>
+            <Chip key={e} style={{ marginHorizontal: 5, marginTop: 5 }}>{e}</Chip>
           ))}
         </View>
 
