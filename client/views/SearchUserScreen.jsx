@@ -3,17 +3,24 @@ import styles from "../utils/styles";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect, useState } from "react";
 import { Searchbar } from "react-native-paper";
-import { useLazyQuery, useMutation } from "@apollo/client";
-import { FIND_USER, FOLLOW_USER } from "../queries/queries";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import { FIND_USER, FOLLOW_USER, PROFILE } from "../queries/queries";
 import Toast from "react-native-root-toast";
+import FollowButton from "../components/FollowButton";
 
 function SearchUserScreen() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const [fetchUser, { data, loading }] = useLazyQuery(FIND_USER);
-  const followUserMutation = useMutation(FOLLOW_USER);
+  const profileData = useQuery(PROFILE).data;
+  const followUserMutation = useMutation(FOLLOW_USER, {
+    refetchQueries: [PROFILE, FIND_USER]
+  });
   const followUser = followUserMutation[0];
   const followResponse = followUserMutation[1].data;
+  const followed = profileData?.userProfile.followings.find(
+    (e) => e._id === data?.findUser?._id
+  );
 
   function handleFollowUser(id) {
     followUser({
@@ -28,6 +35,8 @@ function SearchUserScreen() {
       },
     });
   }
+
+  
 
   useEffect(() => {
     const debouncer = setTimeout(() => {
@@ -71,11 +80,15 @@ function SearchUserScreen() {
           <Text style={{ fontSize: 18, fontWeight: "bold", marginTop: 15 }}>
             {data?.findUser?.name}
           </Text>
+
           {data?.findUser ? (
-            <Button
-              title="Follow"
-              onPress={() => handleFollowUser(data?.findUser?._id)}
-            />
+            <>
+              
+              <FollowButton
+              followed={followed}
+                pressHandler={() => handleFollowUser(data?.findUser?._id)}
+              />
+            </>
           ) : (
             <Text>User not found</Text>
           )}

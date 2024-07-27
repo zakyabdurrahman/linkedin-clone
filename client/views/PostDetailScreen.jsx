@@ -32,6 +32,7 @@ export default function PostDetailScreen({ route }) {
     },
   });
 
+  //console.log(data);
   //add like -> refetch posts + postDetail
 
   function handleLike() {

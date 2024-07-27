@@ -10,7 +10,7 @@ function PostStack() {
     <Stack.Navigator>
       <Stack.Screen name="Posts" component={PostsScreen} />
       <Stack.Screen name="AddPost" component={CreatePostScreen} />
-      <Stack.Screen name="PostDetail" component={PostDetailScreen} />
+      <Stack.Screen name="PostDetail" options={{headerTitle: "Post Detail"}} component={PostDetailScreen} />
     </Stack.Navigator>
   );
 }

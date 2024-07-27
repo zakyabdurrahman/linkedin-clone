@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   postsContainer: {
-    backgroundColor: "gray",
+    backgroundColor: "lavender",
     flex: 1,
   },
   postContainer: {

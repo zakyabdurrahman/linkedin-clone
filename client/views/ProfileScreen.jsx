@@ -13,9 +13,11 @@ export default function ProfileScreen() {
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   const {data, error, loading} = useQuery(PROFILE);
 
-  console.log(data);
+  
+  
   
   const profileData = data?.userProfile;
+  //console.log(profileData)
 
   async function handleLogout() {
     try {
@@ -39,7 +41,7 @@ export default function ProfileScreen() {
           marginBottom: 10,
         }}
       >
-        0 Followings
+        {profileData?.followings?.length} Followings
       </Text>
       <Text
         style={{
@@ -49,7 +51,7 @@ export default function ProfileScreen() {
           marginBottom: 10,
         }}
       >
-        0 Followers
+        {profileData?.followers?.length} Followers
       </Text>
       <Text
         style={{ color: "red", fontSize: 18 }}

@@ -35,7 +35,9 @@ export default function PostCard({ postData, navFn }) {
       </View>
       <View style={{ flexDirection: "row" }}>
         {postData.tags.map((e) => (
-          <Chip style={{ marginHorizontal: 5, marginTop: 5 }}>{e}</Chip>
+          <Chip key={e} style={{ marginHorizontal: 5, marginTop: 5 }}>
+            {e}
+          </Chip>
         ))}
       </View>
 

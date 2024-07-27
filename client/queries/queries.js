@@ -98,6 +98,7 @@ export const PROFILE = gql`
       name
       imgUrl
       followings {
+        _id
         name
       }
       followers {
