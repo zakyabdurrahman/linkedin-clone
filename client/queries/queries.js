@@ -111,3 +111,10 @@ export const PROFILE = gql`
 `;
 
 
+export const ADD_COMMENT = gql`
+  mutation AddComment($input: CommentData!, $postId: ID!) {
+    addComment(input: $input, postId: $postId) {
+      _id
+    }
+  }
+`;

@@ -14,7 +14,7 @@ import { ADD_LIKE, POST_DETAIL, POSTS } from "../queries/queries";
 import { View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import Toast from "react-native-root-toast";
-import { Chip } from "react-native-paper";
+import { Chip, Divider } from "react-native-paper";
 
 //how to pass parameter between navigation
 //then usequery here
@@ -109,6 +109,24 @@ export default function PostDetailScreen({ route }) {
             <Button title="Submit" />
           </View>
         )}
+
+        {data?.getPost.comments.map((comment, i) => {
+          return (
+            <View key={i} style={{ marginTop: 10 }}>
+              <Text
+                style={{ fontSize: 16, fontWeight: "bold", marginBottom: 5 }}
+              >
+                {comment.name}
+              </Text>
+              <Text
+                style={{ fontSize: 16}}
+              >
+                {comment.content}
+              </Text>
+              <Divider style={{marginTop: 5}}/>
+            </View>
+          );
+        })}
       </ScrollView>
     </SafeAreaView>
   );
