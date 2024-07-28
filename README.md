@@ -2,7 +2,8 @@
 # GC01
 
 ## Deployed URL  
-Backend (Apollo Server): https://socialserver.zakyabdur.tech/
+Backend (Apollo Server): https://socialserver.zakyabdur.tech/  
+client (Expo managed React Native ): https://expo.dev/preview/update?message=init&updateRuntimeVersion=1.0.0&createdAt=2024-07-28T02%3A08%3A48.511Z&slug=exp&projectId=262b5799-9b94-40f6-99af-228f52861a6d&group=6aa9b818-8c1c-4bb2-9042-e650fa12f68d
 
 ## My Social Media App
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from "../utils/styles";
 import {
@@ -10,7 +10,7 @@ import {
   TextInput,
 } from "react-native";
 import { useMutation, useQuery } from "@apollo/client";
-import { ADD_LIKE, POST_DETAIL, POSTS } from "../queries/queries";
+import { ADD_COMMENT, ADD_LIKE, POST_DETAIL, POSTS } from "../queries/queries";
 import { View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import Toast from "react-native-root-toast";
@@ -21,10 +21,17 @@ import { Chip, Divider } from "react-native-paper";
 
 export default function PostDetailScreen({ route }) {
   const { id } = route.params;
+  const [comment, setComment] = useState("");
 
   const [addLike] = useMutation(ADD_LIKE, {
     refetchQueries: [POST_DETAIL, POSTS],
   });
+
+
+
+  const [addComment] = useMutation(ADD_COMMENT, {
+    refetchQueries: [POST_DETAIL]
+  })
 
   const { data, loading, error } = useQuery(POST_DETAIL, {
     variables: {
@@ -34,6 +41,21 @@ export default function PostDetailScreen({ route }) {
 
   //console.log(data);
   //add like -> refetch posts + postDetail
+
+  function handleAddComment() {
+    addComment({
+      variables: {
+        input: {
+          content: comment
+        },
+        postId: id
+      }
+    })
+    Toast.show("Comment posted", {
+      duration: Toast.durations.SHORT,
+    });
+    setComment("")
+  }
 
   function handleLike() {
     Toast.show("Liked post", {
@@ -96,6 +118,8 @@ export default function PostDetailScreen({ route }) {
           Comments
         </Text>
         <TextInput
+          onChangeText={setComment}
+          value={comment}
           placeholder="Add a comment.."
           style={{ fontSize: 16, marginTop: 10, marginBottom: 20 }}
         />
@@ -106,7 +130,7 @@ export default function PostDetailScreen({ route }) {
           </View>
         ) : (
           <View>
-            <Button title="Submit" />
+            <Button title="Submit" onPress={handleAddComment} />
           </View>
         )}
 
